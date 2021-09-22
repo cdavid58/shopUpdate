@@ -1,0 +1,199 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- slider Area Start-->
+  <div class="slider-area ">
+    <!-- Mobile Menu -->
+    <div class="single-slider slider-height2 d-flex align-items-center" style="background-image:  url('{% static "assets/img/hero/category.jpg" %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center">
+                        <h2>Verificar</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- slider Area End-->
+
+  <!--================Checkout Area =================-->
+  <section class="checkout_area section_padding">
+    <div class="container">
+      <div class="returning_customer">
+        <!-- <div class="check_title">
+          <h2>
+            ¿Soy Cliente? 
+            <a href="#">Haga clic aquí para ingresar</a>
+          </h2>
+        </div> -->
+        <p>
+          Si ha comprado con nosotros anteriormente, ingrese sus datos en los cuadros a continuación. Si es un cliente nuevo, vaya a la sección Facturación y envío.
+        </p>
+        <form class="row contact_form" action="{% url 'login' %}" method="post" novalidate="novalidate">{% csrf_token %}
+          <div class="col-md-6 form-group p_star">
+            <input type="text" class="form-control" id="name" name="name" value=" " />
+            <span class="placeholder" data-placeholder="Correo Electrónico"></span>
+          </div>
+          <div class="col-md-6 form-group p_star">
+            <input type="password" class="form-control" id="password" name="password" value="" />
+            <span class="placeholder" data-placeholder="Contraseña"></span>
+          </div>
+          <div class="col-md-12 form-group">
+            <button type="submit" value="Ingresar" class="btn_3">
+              Ingresar
+            </button>
+            <div class="creat_account">
+              <input type="checkbox" id="f-option" name="selector" />
+              <label for="f-option">Recuérdame</label>
+            </div>
+            <a class="lost_pass" href="#">¿Perdiste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
+     <!--  <div class="cupon_area">
+        <div class="check_title">
+          <h2>
+            ¿Tiene un cupón?
+            <a href="#">Haga clic aquí para ingresar su código</a>
+          </h2>
+        </div>
+        <input type="text" placeholder="Enter coupon code" />
+        <a class="tp_btn" href="#">Aplicar Cupón</a>
+      </div> -->
+      <div class="billing_details">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>Detalles de facturación y registro de datos</h3>
+            <form class="row contact_form" id="formulario"  method="post" novalidate="novalidate">{% csrf_token %}
+              <div class="col-md-6 form-group p_star">
+                <input type="text" placeholder="Ingrese Nombre" class="form-control" id="first" name="name" autofocus />
+                <!-- <span class="placeholder" data-placeholder="Ingrese Nombre"></span> -->
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <input type="text" placeholder="Ingrese Apellido" class="form-control" id="last" name="last" />
+                <!-- <span class="placeholder" data-placeholder="Ingrese Apellido"></span> -->
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <input type="text" placeholder="Ingrese Nº de teléfono" class="form-control" id="number" name="number" />
+                <!-- <span class="placeholder" data-placeholder="Ingrese Nº de teléfono"></span> -->
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <input type="text" placeholder="Ingrese Email" class="form-control" id="email" name="compemailany" />
+                <!-- <span class="placeholder" data-placeholder="Ingrese Email"></span> -->
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <select class="country_select" name="city">
+                  <option value="medellin">Medellin</option>
+                </select>
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" placeholder="Ingrese Dirección" class="form-control" id="add1" name="add1" />
+                <!-- <span class="placeholder" data-placeholder="Dirección"></span> -->
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="password" placeholder="Ingrese Contraseña" class="form-control" id="add1" name="password" />
+                <!-- <span class="placeholder" data-placeholder="Ingrese Contraseña"></span> -->
+              </div>
+              <!-- <div class="col-md-12 form-group p_star">
+                <select class="country_select">
+                  <option value="1">District</option>
+                  <option value="2">District</option>
+                  <option value="4">District</option>
+                </select>
+              </div> -->
+              <div class="col-md-12 form-group">
+                <div class="creat_account">
+                  <h3>Detalles de envío</h3>
+                </div>
+                <textarea class="form-control" name="message" id="message" rows="1"
+                  placeholder="Order Notes"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-4">
+            <div class="order_box">
+              <h2>Su pedido</h2>
+              <ul class="list">
+                <li>
+                  <a href="#">Producto
+                    <span>Total</span>
+                  </a>
+                </li>
+                {% for i in cart %}
+                  <li>
+                    <a href="#">{{i.article}}
+                      <span class="middle">x {{i.quanty}}</span>
+                      <span class="last">${{i.price}}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <ul class="list list_2">
+                <li>
+                  <a href="#">Subtotal
+                    <span>${{subtotal}}</span>
+                  </a>
+                </li>
+                <!-- <li>
+                  <a href="#">Shipping
+                    <span>Flat rate: $50.00</span>
+                  </a>
+                </li> -->
+                <li>
+                  <a href="#">Total
+                    <span>${{subtotal}}</span>
+                  </a>
+                </li>
+              </ul>
+              <!-- <div class="payment_item">
+                <div class="radion_btn">
+                  <input type="radio" id="f-option5" name="selector" />
+                  <label for="f-option5">Check payments</label>
+                  <div class="check"></div>
+                </div>
+                <p>
+                  Please send a check to Store Name, Store Street, Store Town,
+                  Store State / County, Store Postcode.
+                </p>
+              </div> -->
+              <div class="payment_item active">
+                <div class="radion_btn">
+                  <input type="radio" id="f-option6" name="selector" />
+                  <label for="f-option6">Paypal </label>
+                  <img src="img/product/single-product/card.jpg" alt="" />
+                  <div class="check"></div>
+                </div>
+                <p>
+                  Please send a check to Store Name, Store Street, Store Town,
+                  Store State / County, Store Postcode.
+                </p>
+              </div>
+              <div class="creat_account">
+                <input type="checkbox" id="f-option4" name="selector" />
+                <label for="f-option4">He leído y acepto el  </label>
+                <a href="#">Términos y condiciones*</a>
+              </div>
+              <a id="send" class="btn_3" href="javascript:void(0);">Proceder a Pagar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+
+{% endblock %}
+{% block script %}
+
+  <script>
+    $(document).ready(function(){
+      $("#send").click(function(){
+        $("#formulario").submit();
+      });
+    });
+  </script>
+
+{% endblock %}

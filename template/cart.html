@@ -1,0 +1,95 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- slider Area Start-->
+  <div class="slider-area ">
+    <!-- Mobile Menu -->
+    <div class="single-slider slider-height2 d-flex align-items-center" style="background-image: url({% static 'assets/img/hero/category.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center">
+                        <h2>Carrito</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- slider Area End-->
+
+  <!--================Cart Area =================-->
+  <section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in cart %}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      <img src="{{i.image}}" alt="" />
+                    </div>
+                    <div class="media-body">
+                      <p>{{i.article}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5>${{i.price}}</h5>
+                </td>
+                <td>
+                  <div class="product_count">
+                    <span class="input-number-decrement"> <i class="ti-minus"></i></span>
+                    <input class="input-number" type="text" disabled value="{{i.quanty}}" min="0" max="10">
+                    <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                  </div>
+                </td>
+                <td>
+                  <h5>${{i.total}}</h5>
+                </td>
+              </tr>
+              {% endfor %}
+              <tr class="bottom_button">
+                <td>
+                  <a class="btn_1" href="#">Actualizar Compra</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="cupon_text float-right">
+                    <a class="btn_1" href="#">Eliminar Pedido</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h5>Subtotal</h5>
+                </td>
+                <td>
+                  <h5>${{subtotal}}</h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="checkout_btn_inner float-right">
+            <a class="btn_1" href="{% url 'category' %}">Seguir Comprando</a>
+            <a class="btn_1 checkout_btn_1" href="{% url 'checkout' %}">Pasar Por La Caja</a>
+          </div>
+        </div>
+      </div>
+  </section>
+{% endblock %}
